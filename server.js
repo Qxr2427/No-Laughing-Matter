@@ -23,5 +23,13 @@ app.get('/', (req, res) => {
     res.render('home')
 })
 
+app.get('/:room', (req, res) => {
+    const context = req.cookies["context"];
+    res.clearCookie("context", { httpOnly: true });
+    res.render('room', { roomId: req.params.room, name: context })
+    //console.log(req.params)
+  })
+  
+
 PORT = process.env.PORT || 3000
 server.listen(PORT, () => console.log(`server running on port ${PORT}`))
