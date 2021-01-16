@@ -16,11 +16,7 @@ socket.on('your_turn', ()=>{
         turn++ //incremenmt turn counter in turn list
         var turn_button = document.createElement("BUTTON")
         turn_button.id = "turn"
-<<<<<<< HEAD:frontend/startgame.js
-        turn_button.innerHTML = "MY TURN"
-=======
         turn_button.innerHTML = "YOUR TURN"
->>>>>>> 3b143c51d526a493539a5256eecb151cb22b75ae:public/js/startgame.js
         document.getElementById("my-turn").appendChild(turn_button)
         document.getElementById('turn').addEventListener('click', ()=>{
             socket.emit('start-game', {cur_turn: turnorder[turn]})
