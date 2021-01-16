@@ -41,13 +41,9 @@ io.on('connection', socket => {
         socket.to(roomId).broadcast.emit('user-disconnected', userId)
       })
 
-      socket.on('broadcast2', data =>{
-        socket.emit('broadcast2-response', {description: "response after click button", Name: data.name})
-      })
+    
 
-      socket.on('points+', ()=>{
-        io.emit('points+response')
-      })
+    
 
       socket.on('list-update', (data) => {
         console.log('list update')
@@ -55,10 +51,11 @@ io.on('connection', socket => {
       })
 
       socket.on('start-game', (data)=>{
-        console.log(data.cur_turn) //if not the target user it does not send?????
+        console.log(`${socket.id} sent to ${data.cur_turn}`) //if not the target user it does not send?????
         io.to(data.cur_turn).emit('your_turn')
-       
       })
+
+      
     })
   })
 
