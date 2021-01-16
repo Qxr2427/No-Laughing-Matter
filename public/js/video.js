@@ -85,6 +85,19 @@ function connectToNewUser(userId, stream) {
     }
     return 100*(happy*0.5 + surprisedScore*0.4 + diffScore * 0.1)
   }
+  function runningavg(arr){
+    let avg = 0
+    let count = 20
+    var i 
+    for (i = 0; i < 20; i++){
+      try {
+        avg += arr[i]
+      } catch (error) {
+        count--
+      }
+    }
+    return avg/count
+  }
   
   function addVideoStream(video, stream, me = false) {
     if (Array.from(videoGrid.children).some(cell => cell.getElementsByTagName('video')[0].srcObject.id === stream.id)) return
@@ -104,9 +117,11 @@ function connectToNewUser(userId, stream) {
     // faceapi.matchDimensions(canvas, displaySize)
     var prevX = 100
     var prevY = 100
+    var running_average_array = [60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60]
     let flag = false
     let maxscore = 60
     let referenceMouth = 0
+    let cur_average
     setInterval(async () => {
       const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions()
       // const resizedDetections = faceapi.resizeResults(detections, displaySize)
@@ -131,19 +146,26 @@ function connectToNewUser(userId, stream) {
       //console.log(score(happy, surprised, diffX, diffY))
       if(!flag){
         referenceMouth = mouth - 8
+        flag=true
       }
-      maxscore = Math.max (score(happy, (mouth - referenceMouth) * 0.033, diffX, diffY), maxscore)
       console.log("Max = " + maxscore)
       console.log("Current score = " + score(happy, (mouth - referenceMouth) * 0.033, diffX, diffY))
       
       var cur_score = score(happy, (mouth - referenceMouth) * 0.033, diffX, diffY)
       
+      running_average_array.shift()
+      running_average_array.push(cur_score)
+      cur_average = runningavg(running_average_array)
       //score(happy, (mouth - referenceMouth) * 0.033, diffX, diffY)
-      if(!flag){
-        flag=true
-        maxscore = 60
-      }
+      //if(!flag){
+      //  flag=true
+      //  maxscore = 60
+     // }
+     maxscore = Math.max (cur_average, maxscore)
+     console.log("Current avg = " + cur_average)
+
       socket.emit('cur_score', {current_score: cur_score})
+      //socket.emit('cur_avg', {current_average: cur_average})
       //console.log(detections[0].landmarks.__proto__)
       //document.getElementById("score").innerHTML = "Current score: " + score(happy, (mouth - referenceMouth) * 0.033, diffX, diffY).toString()
       //document.getElementById("maxscore").innerHTML = "Max score: "+maxscore.toString()
