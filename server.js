@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set('view engine', 'ejs')
-app.use(express.static('frontend'))
+app.use(express.static('public'))
 
 app.post('/submit', (req, res) => {
     //console.log(req.body) //you will get your data in this as object.
