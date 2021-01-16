@@ -2,6 +2,7 @@ turn = 0
 
 document.getElementById('start-game').addEventListener('click', ()=>{
     socket.emit('start-game', {cur_turn: turnorder[turn]})
+    //console.log(turnorder[turn])
 })
 
 socket.on('your_turn', ()=>{

@@ -55,7 +55,9 @@ io.on('connection', socket => {
       })
 
       socket.on('start-game', (data)=>{
+        console.log(data.cur_turn) //if not the target user it does not send?????
         io.to(data.cur_turn).emit('your_turn')
+       
       })
     })
   })
