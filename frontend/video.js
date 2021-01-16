@@ -45,7 +45,54 @@ Promise.all([
 })
 
 
-//
+socket.on('user-disconnected', userId => {
+    if (peers[userId]) peers[userId].close()
+  })
+  
+  myPeer.on('open', id => {
+    socket.emit('join-room', ROOM_ID, id)
+  })
+  
+function connectToNewUser(userId, stream) {
+    const call = myPeer.call(userId, stream)
+    const video = document.createElement('video')
+    call.on('stream', userVideoStream => {
+      addVideoStream(video, userVideoStream)
+    })
+    call.on('close', () => {
+      video.remove()
+    })
+  
+    peers[userId] = call
+  }
+  
+  function addVideoStream(video, stream) {
+    video.srcObject = stream
+    video.addEventListener('loadedmetadata', () => {
+      video.play()
+    })
+  
+  
+    // video.addEventListener('play', () => {
+    //   //const canvas = faceapi.createCanvasFromMedia(video)
+    //   //document.body.append(canvas)
+    //   //const displaySize = { width: video.width, height: video.height }
+    //   //faceapi.matchDimensions(canvas, displaySize)
+    //   setInterval(async () => {
+    //     const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions()
+    //     //const resizedDetections = faceapi.resizeResults(detections, displaySize)
+    //    // canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
+    //     //faceapi.draw.drawDetections(canvas, resizedDetections)
+    //     //faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
+    //     //faceapi.draw.drawFaceExpressions(canvas, resizedDetections)
+    //     socket.emit('points+')
+    //     console.log(detections)
+  
+  
+    //   }, 500)
+  
+  
+    // })
   videoGrid.append(video)
   
 }
