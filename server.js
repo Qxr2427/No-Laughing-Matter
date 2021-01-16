@@ -46,6 +46,11 @@ io.on('connection', socket => {
         io.emit('update_score', {score: data.current_score})
       })
     
+      socket.on('URGENT_LIST_UPDATE', (data)=>{
+        console.log(data)
+        io.emit('GLOBAL_URGENT_LIST_UPDATE', {globallist: data.list})
+
+      })
 
       socket.on('list-update', (data) => {
         console.log('list update')

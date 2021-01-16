@@ -157,7 +157,7 @@ function connectToNewUser(userId, stream) {
     videoCell.style.display = "inline-block"
 
     let name = document.createElement("p")
-    name.innerText = "MARK" // Put name here pls
+    name.innerText = NAME // Put name here pls
     videoCell.appendChild(name)
 
     videoGrid.appendChild(videoCell)
