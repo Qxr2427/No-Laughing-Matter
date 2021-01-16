@@ -1,4 +1,4 @@
-const socket = io('/')
+//const socket = io('/')
 
 //const io = require('socket.io')(server)
 var points = 0;
