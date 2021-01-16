@@ -29,21 +29,35 @@ app.get('/:room', (req, res) => {
     res.render('room', { roomId: req.params.room, name: context })
     //console.log(req.params)
   })
-  
+
 io.on('connection', socket => {
-    io.emit('broadcast', {description: 'message to all clients'});
+  
     socket.on('join-room', (roomId, userId) => {
+
+      io.emit("new-user", {name: socket.id}) 
       socket.join(roomId)
       socket.to(roomId).broadcast.emit('user-connected', userId)
       socket.on('disconnect', () => {
         socket.to(roomId).broadcast.emit('user-disconnected', userId)
       })
-      socket.on('broadcast2', data =>{
-        socket.emit('broadcast2-response', {description: "response after click button", Name: data.name})
+
+    
+      socket.on('cur_score', data =>{
+        io.emit('update_score', {score: data.current_score})
       })
-      socket.on('points+', ()=>{
-        io.emit('points+response')
+    
+
+      socket.on('list-update', (data) => {
+        console.log('list update')
+        io.emit('global-list-update', {globallist: data.list})
       })
+
+      socket.on('start-game', (data)=>{
+        console.log(`${socket.id} sent to ${data.cur_turn}`) //if not the target user it does not send?????
+        io.to(data.cur_turn).emit('your_turn')
+      })
+
+      
     })
   })
 
