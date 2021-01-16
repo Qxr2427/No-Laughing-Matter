@@ -15,8 +15,8 @@ const peers = {}
 
 Promise.all([
   faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
-  //faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
-  //faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
+  faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
+  faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
   faceapi.nets.faceExpressionNet.loadFromUri('/models')
 ]).then(() => {
 
@@ -65,7 +65,23 @@ function connectToNewUser(userId, stream) {
   
     peers[userId] = call
   }
-  
+  function score(happy, surprised, diffX, diffY){
+    let diffScore = 20
+    if((diffX + diffY)/20 > 1){
+      diffScore = 1
+    }
+    else{
+      diffScore = (diffX + diffY)/20 
+    }
+    let surprisedScore = 20 
+    if(surprised > 1){
+      surprisedScore = 1
+    }
+    else{
+      surprisedScore = surprised
+    }
+    return 100*(happy*0.5 + surprisedScore*0.4 + diffScore * 0.1)
+  }
   function addVideoStream(video, stream) {
     video.srcObject = stream
     video.addEventListener('loadedmetadata', () => {
@@ -73,26 +89,58 @@ function connectToNewUser(userId, stream) {
     })
   
   
-    // video.addEventListener('play', () => {
-    //   //const canvas = faceapi.createCanvasFromMedia(video)
-    //   //document.body.append(canvas)
-    //   //const displaySize = { width: video.width, height: video.height }
-    //   //faceapi.matchDimensions(canvas, displaySize)
-    //   setInterval(async () => {
-    //     const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions()
-    //     //const resizedDetections = faceapi.resizeResults(detections, displaySize)
-    //    // canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
-    //     //faceapi.draw.drawDetections(canvas, resizedDetections)
-    //     //faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
-    //     //faceapi.draw.drawFaceExpressions(canvas, resizedDetections)
-    //     socket.emit('points+')
-    //     console.log(detections)
+     video.addEventListener('play', () => {
+      const canvas = faceapi.createCanvasFromMedia(video)
+    //const newDiv=document.createElement("div")
+    //video.appendChild(canvas)
+    videoGrid.append(video)
+    videoGrid.append(canvas)
+    const displaySize = { width: video.offsetWidth, height: video.offsetHeight}
+    faceapi.matchDimensions(canvas, displaySize)
+    var prevX = 100
+    var prevY = 100
+    let flag = false
+    let maxscore = 60
+    let referenceMouth = 0
+    setInterval(async () => {
+      const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions()
+      const resizedDetections = faceapi.resizeResults(detections, displaySize)
+      canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
+      faceapi.draw.drawDetections(canvas, resizedDetections)
+      faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
+      faceapi.draw.drawFaceExpressions(canvas, resizedDetections)
+      console.log(detections)
+     // console.log(detections[0].expressions.happy)
+      let diffX = Math.abs(prevX - detections[0].detection._box.x )
+      let diffY = Math.abs(prevY - detections[0].detection._box.y )
+      prevX = detections[0].detection._box.x
+      prevY = detections[0].detection._box.y
+      let happy = detections[0].expressions.happy
+      let mouth = detections[0].landmarks.positions[57].y - detections[0].landmarks.positions[51].y
+      //console.log(happy)
+      //console.log(surprised)
+      //console.log(diffX)
+      //console.log(diffY)
+      //console.log(mouth - referenceMouth)
+      //console.log(referenceMouth)
+      //console.log(score(happy, surprised, diffX, diffY))
+      if(!flag){
+        referenceMouth = mouth - 8
+      }
+      maxscore = Math.max (score(happy, (mouth - referenceMouth) * 0.033, diffX, diffY), maxscore)
+      console.log("Max = " + maxscore)
+      console.log("Current score = " + score(happy, (mouth - referenceMouth) * 0.033, diffX, diffY))
+      if(!flag){
+        flag=true
+        maxscore = 60
+      }
+      //console.log(detections[0].landmarks.__proto__)
+      //document.getElementById("score").innerHTML = "Current score: " + score(happy, (mouth - referenceMouth) * 0.033, diffX, diffY).toString()
+      //document.getElementById("maxscore").innerHTML = "Max score: "+maxscore.toString()
+      }, 500)
   
   
-    //   }, 500)
-  
-  
-    // })
+    })
   videoGrid.append(video)
   
 }
