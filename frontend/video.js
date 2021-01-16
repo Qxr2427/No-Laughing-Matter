@@ -24,14 +24,16 @@ Promise.all([
     video: true,
     audio: true
   }).then(stream => {
-    addVideoStream(myVideo, stream)
+    addVideoStream(myVideo, stream, true)
   
   
     myPeer.on('call', call => {
       call.answer(stream)
       const video = document.createElement('video')
+      console.log('a')
       call.on('stream', userVideoStream => {
         addVideoStream(video, userVideoStream)
+        console.log('b')
       })
     })
   
@@ -47,29 +49,40 @@ Promise.all([
 
 socket.on('user-disconnected', userId => {
     if (peers[userId]) peers[userId].close()
+    console.log('c')
   })
   
   myPeer.on('open', id => {
     socket.emit('join-room', ROOM_ID, id)
+    console.log('d')
   })
   
 function connectToNewUser(userId, stream) {
     const call = myPeer.call(userId, stream)
     const video = document.createElement('video')
+    console.log('e')
     call.on('stream', userVideoStream => {
       addVideoStream(video, userVideoStream)
+      console.log('f')
     })
     call.on('close', () => {
-      video.remove()
+      video.parentElement.remove()
+      console.log('g')
+      // video.remove()
     })
   
     peers[userId] = call
   }
   
-  function addVideoStream(video, stream) {
+  function addVideoStream(video, stream, me = false) {
+    if (Array.from(videoGrid.children).some(cell => cell.getElementsByTagName('video')[0].srcObject.id === stream.id)) return
+    console.log(video, stream, me)
     video.srcObject = stream
+    console.log('h')
+    if (me) video.style.transform = "rotateY(180deg)";
     video.addEventListener('loadedmetadata', () => {
       video.play()
+      console.log('i')
     })
   
   
@@ -93,8 +106,18 @@ function connectToNewUser(userId, stream) {
   
   
     // })
-  videoGrid.append(video)
-  
+    const videoCell = document.createElement("div")
+    videoCell.appendChild(video)
+    videoCell.className = "video-box"
+    videoCell.style.display = "inline-block"
+
+    let name = document.createElement("p")
+    name.innerText = "MARK" // Put name here pls
+    videoCell.appendChild(name)
+
+    videoGrid.appendChild(videoCell)
+
+    // videoGrid.append(video)
 }
 
 
