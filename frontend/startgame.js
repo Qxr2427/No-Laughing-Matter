@@ -20,3 +20,12 @@ socket.on('your_turn', ()=>{
     }
 
 )
+
+var progressBar = new ProgressBar.Line(document.getElementById('div1'), {
+    strokeWidth: 2
+  });
+  
+socket.on('update_score', (data)=>{
+    console.log("UPDATE SCORE") // BUT IT ISNT DRAWING!!!!!
+    progressBar.set(data.current_score)
+  })

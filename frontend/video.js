@@ -94,9 +94,9 @@ function connectToNewUser(userId, stream) {
     //const newDiv=document.createElement("div")
     //video.appendChild(canvas)
     videoGrid.append(video)
-    videoGrid.append(canvas)
-    const displaySize = { width: video.offsetWidth, height: video.offsetHeight}
-    faceapi.matchDimensions(canvas, displaySize)
+    // videoGrid.append(canvas)
+    // const displaySize = { width: video.offsetWidth, height: video.offsetHeight}
+    // faceapi.matchDimensions(canvas, displaySize)
     var prevX = 100
     var prevY = 100
     let flag = false
@@ -104,12 +104,12 @@ function connectToNewUser(userId, stream) {
     let referenceMouth = 0
     setInterval(async () => {
       const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions()
-      const resizedDetections = faceapi.resizeResults(detections, displaySize)
-      canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
-      faceapi.draw.drawDetections(canvas, resizedDetections)
-      faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
-      faceapi.draw.drawFaceExpressions(canvas, resizedDetections)
-      console.log(detections)
+      // const resizedDetections = faceapi.resizeResults(detections, displaySize)
+      // canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
+      // faceapi.draw.drawDetections(canvas, resizedDetections)
+      // faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
+      // faceapi.draw.drawFaceExpressions(canvas, resizedDetections)
+      // console.log(detections)
      // console.log(detections[0].expressions.happy)
       let diffX = Math.abs(prevX - detections[0].detection._box.x )
       let diffY = Math.abs(prevY - detections[0].detection._box.y )
@@ -130,10 +130,15 @@ function connectToNewUser(userId, stream) {
       maxscore = Math.max (score(happy, (mouth - referenceMouth) * 0.033, diffX, diffY), maxscore)
       console.log("Max = " + maxscore)
       console.log("Current score = " + score(happy, (mouth - referenceMouth) * 0.033, diffX, diffY))
+      
+      var cur_score = score(happy, (mouth - referenceMouth) * 0.033, diffX, diffY)
+      
+      //score(happy, (mouth - referenceMouth) * 0.033, diffX, diffY)
       if(!flag){
         flag=true
         maxscore = 60
       }
+      socket.emit('cur_score', {current_score: cur_score})
       //console.log(detections[0].landmarks.__proto__)
       //document.getElementById("score").innerHTML = "Current score: " + score(happy, (mouth - referenceMouth) * 0.033, diffX, diffY).toString()
       //document.getElementById("maxscore").innerHTML = "Max score: "+maxscore.toString()

@@ -42,7 +42,9 @@ io.on('connection', socket => {
       })
 
     
-
+      socket.on('cur_score', data =>{
+        io.emit('update_score', {score: data.current_score})
+      })
     
 
       socket.on('list-update', (data) => {
