@@ -33,9 +33,9 @@ app.get('/:room', (req, res) => {
 io.on('connection', socket => {
     io.emit('broadcast', {description: 'message to all clients'});
     socket.on('join-room', (roomId, userId) => {
-      ////socket.join(roomId)
-      ////socket.to(roomId).broadcast.emit('user-connected', userId)
-      //socket.on('disconnect', () => {
+      socket.join(roomId)
+      socket.to(roomId).broadcast.emit('user-connected', userId)
+      socket.on('disconnect', () => {
         socket.to(roomId).broadcast.emit('user-disconnected', userId)
       })
       socket.on('broadcast2', data =>{
