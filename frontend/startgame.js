@@ -12,7 +12,7 @@ socket.on('your_turn', ()=>{
         turn++
         var turn_button = document.createElement("BUTTON")
         turn_button.id = "turn"
-        turn_button.innerHTML = "Myyyyyy turn"
+        turn_button.innerHTML = "MY TURN"
         document.getElementById("my-turn").appendChild(turn_button)
         document.getElementById('turn').addEventListener('click', ()=>{
             socket.emit('start-game', {cur_turn: turnorder[turn]})

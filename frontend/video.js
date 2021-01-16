@@ -154,7 +154,6 @@ function connectToNewUser(userId, stream) {
     const videoCell = document.createElement("div")
     videoCell.appendChild(video)
     videoCell.className = "video-box"
-    videoCell.style.display = "inline-block"
 
     let name = document.createElement("p")
     name.innerText = "MARK" // Put name here pls
