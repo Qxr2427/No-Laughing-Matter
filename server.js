@@ -30,6 +30,22 @@ app.get('/:room', (req, res) => {
     //console.log(req.params)
   })
   
+io.on('connection', socket => {
+    io.emit('broadcast', {description: 'message to all clients'});
+    socket.on('join-room', (roomId, userId) => {
+      ////socket.join(roomId)
+      ////socket.to(roomId).broadcast.emit('user-connected', userId)
+      //socket.on('disconnect', () => {
+        socket.to(roomId).broadcast.emit('user-disconnected', userId)
+      })
+      socket.on('broadcast2', data =>{
+        socket.emit('broadcast2-response', {description: "response after click button", Name: data.name})
+      })
+      socket.on('points+', ()=>{
+        io.emit('points+response')
+      })
+    })
+  })
 
 PORT = process.env.PORT || 3000
 server.listen(PORT, () => console.log(`server running on port ${PORT}`))
