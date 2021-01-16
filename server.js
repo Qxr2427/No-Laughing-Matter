@@ -35,7 +35,6 @@ io.on('connection', socket => {
     socket.on('join-room', (roomId, userId) => {
 
       io.emit("new-user", {name: socket.id}) 
-
       socket.join(roomId)
       socket.to(roomId).broadcast.emit('user-connected', userId)
       socket.on('disconnect', () => {
@@ -51,6 +50,7 @@ io.on('connection', socket => {
       })
 
       socket.on('list-update', (data) => {
+        console.log('list update')
         io.emit('global-list-update', {globallist: data.list})
       })
 

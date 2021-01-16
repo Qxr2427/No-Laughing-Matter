@@ -1,7 +1,7 @@
 //const socket = io('/')
 
 //const io = require('socket.io')(server)
-var points = 0;
+var points = 0
 
 
 socket.on('broadcast2-response', data => { 

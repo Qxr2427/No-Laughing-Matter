@@ -1,4 +1,4 @@
-turn = 0
+var turn = 0
 
 document.getElementById('start-game').addEventListener('click', ()=>{
     socket.emit('start-game', {cur_turn: turnorder[turn]})

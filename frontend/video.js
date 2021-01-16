@@ -37,7 +37,7 @@ Promise.all([
   
     socket.on('user-connected', userId => {
       connectToNewUser(userId, stream)
-      //console.log('connected')
+      console.log('connected')
       //names.append(NAME)
       //console.log(NAME)  // whenever a client detects a new connection this logs
     })
