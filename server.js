@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set('view engine', 'ejs')
-app.use(express.static('frontend'))
+app.use(express.static('public'))
 
 app.post('/submit', (req, res) => {
     //console.log(req.body) //you will get your data in this as object.
@@ -46,6 +46,11 @@ io.on('connection', socket => {
         io.emit('update_score', {score: data.current_score})
       })
     
+      socket.on('URGENT_LIST_UPDATE', (data)=>{
+        console.log(data)
+        io.emit('GLOBAL_URGENT_LIST_UPDATE', {globallist: data.list})
+
+      })
 
       socket.on('list-update', (data) => {
         console.log('list update')
@@ -54,6 +59,7 @@ io.on('connection', socket => {
 
       socket.on('start-game', (data)=>{
         console.log(`${socket.id} sent to ${data.cur_turn}`) //if not the target user it does not send?????
+        io.emit('GAME_STARTED')
         io.to(data.cur_turn).emit('your_turn')
       })
 
