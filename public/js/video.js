@@ -36,10 +36,11 @@ Promise.all([
     })
   
     socket.on('user-connected', userId => {
-      connectToNewUser(userId, stream)
-      console.log('connected')
-      //names.append(NAME)
-      //console.log(NAME)  // whenever a client detects a new connection this logs
+      // user is joining
+      setTimeout(() => {
+        // user joined
+        connectToNewUser(userId, stream)
+      }, 3000)
     })
   })
 })
@@ -154,7 +155,6 @@ function connectToNewUser(userId, stream) {
     const videoCell = document.createElement("div")
     videoCell.appendChild(video)
     videoCell.className = "video-box"
-    videoCell.style.display = "inline-block"
 
     let name = document.createElement("p")
     name.innerText = NAME // Put name here pls
