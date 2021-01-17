@@ -10,13 +10,14 @@ h1 {
   font-family: Fira Sans;
   font-style: italic;
   font-weight: bold;
-  font-size: 120px;
+  font-size: 12vh;
   line-height: 85%;
 
   display: flex;
   align-items: center;
   text-align: center;
-  margin-top: 5%
+  margin-top: 5%;
+  margin-bottom: 5vh;
 }
 main {
   padding: 5%;
@@ -25,10 +26,10 @@ main {
   display: grid;
   grid-template-columns: repeat(auto-fill, 300px);
   grid-auto-rows: 300px;
-  column-gap: 50px;
-  row-gap: 150px;
-  /* border: red solid 1px; */
-  margin-bottom: 80px;
+  column-gap: 30px;
+  row-gap: 80px;
+  border: red solid 1px;
+  margin-bottom: 5vh;
 }
 #progress-title {
   margin-top: 0;
@@ -60,12 +61,12 @@ button, input, #room-code-display {
 }
 button, input {
   background: #FC9434;
-  width: 300px;
-  height: 100px;
+  width: 20vw;
+  height: 10vh;
   font-family: Fira Sans;
   font-style: normal;
   font-weight: bold;
-  font-size: 60px;
+  font-size: 7vh;
   line-height: 72px;
 }
 input[type="text"] {
@@ -80,7 +81,7 @@ input:focus {
 #start-game, #my-turn button {
   float: right;
   clear: right;
-  width: 500px;
+  width: 30vw;
 }
 
 #container{
@@ -100,17 +101,18 @@ input:focus {
 #room-code-display {
   background-color: white;
   display: inline-block;
-  width: 300px;
-  height: 150px;
+  width: 15vw;
+  height: 15vh;
 }
 #below-videos {
-  /* border: red solid 1px; */
+  border: red solid 1px;
+  margin-top: 6vh;
 }
 #room-code-display h2 {
   font-family: Fira Sans;
   font-style: normal;
   font-weight: bold;
-  font-size: 100px;
+  font-size: 5.5vmax;
   margin: auto;
 }
 #room-code-group, #join-instructions {
@@ -130,7 +132,7 @@ input:focus {
 }
 #room-code-group h6 {
   font-size: 30px;
-  margin: 20px 0;
+  margin: 20px 0 0 0;
   text-align: center;
 }
 .progress {
@@ -141,6 +143,7 @@ input:focus {
   /* -moz-border-radius: 0px;
   -webkit-border-radius: 0px; */
   border-radius: 0px;
+  margin: 0 auto;
   /* margin: 10px; */
 }
 #progress-bar {
