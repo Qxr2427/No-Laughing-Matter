@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
 
-const prompts = ["unfunny joke 1","unfunny joke 2","unfunny joke 3","unfunnt joke 4","unfunny joke 5"]
+const prompts = ["mario judah","xxxtentacion","AIYY LMAO","we got this guys","unfunny joke 5"]
 
 // temporary (replace/edit later)
 app.use('/results', (req, res)=>{
@@ -76,11 +76,12 @@ io.on('connection', socket => {
       })
 
       socket.on('prompt', data =>{
+        console.log(prompts[data.turnNum])
         io.emit('displayPrompt', {PROMPT: prompts[data.turnNum] , DisplayName: data.curName})
 
       })
-      socket.on('start-judging', data =>{
-        socket.emit('check-score')
+      socket.on('start-judging', () =>{
+        io.emit('check-score')
           //code to check if score reaches below threshold
       })
 

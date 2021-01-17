@@ -31,13 +31,15 @@ socket.on('your_turn', ()=>{
             socket.emit('start-game', {cur_turn: turnorder[turn]})
             document.getElementById('turn').remove()
             //but.remove()
-        socket.emit('prompt', {curName: NAME, turnNum: turn})
+            socket.emit('prompt', {curName: NAME, turnNum: turn})
         })
-    }
+    })
 
-)
-
-socket.on('displayPrompt', data =>{
+socket.on('displayPrompt', data => {
+    //console.log(data)
+    $("#exampleModalCenter").modal('show')
+    var promp = document.getElementById('content')
+    promp.innerHTML = (data.DisplayName + " prompt is... "+ data.PROMPT)
     //alert(data.DisplayName +" prompt is " + data.PROMPT)
     
     // let btn = {
@@ -47,8 +49,7 @@ socket.on('displayPrompt', data =>{
     //     'data-target': "#exampleModalCenter",
     //     innerHTML: "PROMPT!"
     // }
-    
-socket.emit('start-judging')
+    socket.emit('start-judging')
 })
 
 socket.on('GAMEOVER', ()=>{
