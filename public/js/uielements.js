@@ -1,27 +1,26 @@
 const progressBar = document.getElementById("progress-bar");
-
+let laughScore;
+var container = document.getElementById('container');
+var emoji = ['😂'];
+var circles = [];
 
 socket.on("update_score", (data) => {
   console.log(Math.round(data.score));
   progressBar.style=  `width: ${Math.round(data.score)}%`;
   console.log("recieve cur_score");
-
 });
 
-var container = document.getElementById('container');
-var emoji = ['😂'];
-var circles = [];
+
 
 // how many circles
 const circleNumber = 5;
-const circleFreq = 500;
-for (let i = circleNumber; i < 5; i++) {
-  addCircle(i * 500, [10 + 30, 50], emoji[Math.floor(Math.random() * emoji.length)]);
-  addCircle(i * 500, [27 + 100, 50], emoji[Math.floor(Math.random() * emoji.length)]);
-  addCircle(i * 500, [39 + 300, 50], emoji[Math.floor(Math.random() * emoji.length)]);
-  addCircle(i * 500, [46 + 500, 50], emoji[Math.floor(Math.random() * emoji.length)]);
-  addCircle(i * 500, [58 + 700, 50], emoji[Math.floor(Math.random() * emoji.length)]);
-  addCircle(i * 500, [70 + 1000, 50], emoji[Math.floor(Math.random() * emoji.length)]);
+let circleFreq = laughScore;
+for (let i = 0; i < circleNumber; i++) {
+  addCircle(i * circleFreq, [27 + 100, 50], emoji[Math.floor(Math.random() * emoji.length)]);
+  addCircle(i * circleFreq, [39 + 300, 50], emoji[Math.floor(Math.random() * emoji.length)]);
+  addCircle(i * circleFreq, [46 + 500, 50], emoji[Math.floor(Math.random() * emoji.length)]);
+  addCircle(i * circleFreq, [58 + 700, 50], emoji[Math.floor(Math.random() * emoji.length)]);
+  addCircle(i * circleFreq, [70 + 1000, 50], emoji[Math.floor(Math.random() * emoji.length)]);
 }
 
 function addCircle(delay, range, color) {
@@ -71,5 +70,3 @@ function animate() {
 }
 
 animate();
-
-
