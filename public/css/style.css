@@ -44,11 +44,17 @@ main {
   font-size: 30px;
   margin-top: 10px;
 }
-button, input {
-  background: #FC9434;
+button, input, #room-code-display {
   border: 10px solid #000000;
   box-sizing: border-box;
   box-shadow: 14px 14px 30px 10px rgba(0, 0, 0, 0.25), 10px 10px 0 #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+button, input {
+  background: #FC9434;
   width: 300px;
   height: 100px;
   font-family: Fira Sans;
@@ -56,16 +62,9 @@ button, input {
   font-weight: bold;
   font-size: 60px;
   line-height: 72px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
 }
 input[type="text"] {
   background: white;
-}
-#start-game {
-  
 }
 ::-webkit-input-placeholder {
   color: #ddd;
@@ -77,4 +76,43 @@ input:focus {
   float: right;
   clear: right;
   width: 500px;
+}
+#start-game-div {
+  /* border: red solid 1px; */
+  float: right;
+  clear: right;
+}
+#roomCode, #nameID {
+  text-transform: uppercase;
+}
+#room-code-display {
+  background-color: white;
+  display: inline-block;
+  width: 300px;
+  height: 150px;
+  font-family: Fira Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 100px;
+  /* line-height: 120px; */
+}
+#room-code-group, #join-instructions {
+  display: inline-block;
+  /* border: red solid 1px; */
+  vertical-align: top;
+  margin-right: 50px;
+}
+#join-instructions p {
+  margin: 0;
+  font-size: 20px;
+}
+#join-instructions h2 {
+  font-size: 60px;
+  font-weight: 700;
+  margin: 3px 0 7px 0;
+}
+#room-code-group h6 {
+  font-size: 30px;
+  margin: 20px 0;
+  text-align: center;
 }

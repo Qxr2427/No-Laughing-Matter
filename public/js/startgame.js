@@ -9,6 +9,8 @@ document.getElementById('start-game').addEventListener('click', ()=>{
 
 socket.on('GAME_STARTED', ()=>{
     document.getElementById('start-game').remove()
+    document.getElementById('room-code-group').remove()
+    document.getElementById('join-instructions').remove()
     //do game_started dialogue 
     alert('game STARTED')
 })
