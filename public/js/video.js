@@ -175,6 +175,7 @@ function connectToNewUser(userId, stream) {
   
     })
     const videoCell = document.createElement("div")
+    videoCell.id = "video-cell";
     videoCell.appendChild(video)
     videoCell.className = "video-box"
     console.log(turnorder)
