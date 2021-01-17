@@ -12,7 +12,7 @@ socket.on('GAME_STARTED', ()=>{
     document.getElementById('room-code-group').remove()
     document.getElementById('join-instructions').remove()
     //do game_started dialogue 
-    alert('game STARTED')
+    //alert('game STARTED')
 })
 
 socket.on('your_turn', ()=>{
@@ -38,9 +38,17 @@ socket.on('your_turn', ()=>{
 )
 
 socket.on('displayPrompt', data =>{
-    alert(data.DisplayName +" prompt is " + data.PROMPT)
-
-
+    //alert(data.DisplayName +" prompt is " + data.PROMPT)
+    
+    // let btn = {
+    //     type: "button",
+    //     class: "btn btn-primary",
+    //     'data-toggle': "modal",
+    //     'data-target': "#exampleModalCenter",
+    //     innerHTML: "PROMPT!"
+    // }
+    
+socket.emit('start-judging')
 })
 
 socket.on('GAMEOVER', ()=>{

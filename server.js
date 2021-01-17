@@ -79,6 +79,10 @@ io.on('connection', socket => {
         io.emit('displayPrompt', {PROMPT: prompts[data.turnNum] , DisplayName: data.curName})
 
       })
+      socket.on('start-judging', data =>{
+        socket.emit('check-score')
+          //code to check if score reaches below threshold
+      })
 
       socket.on('game-over', ()=>{
         io.emit('GAMEOVER')
