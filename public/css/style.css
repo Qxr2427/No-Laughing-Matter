@@ -59,6 +59,14 @@ button, input, #room-code-display {
   justify-content: center;
   text-align: center;
 }
+
+button:hover {background-color:  #d4771f}
+
+button:active {
+  background-color: #d4771f;
+  box-shadow: 0 5px #000000;
+  transform: translateY(4px), translateX(4px);
+}
 button, input {
   background: #FC9434;
   width: 20vw;
@@ -69,6 +77,31 @@ button, input {
   font-size: 7vh;
   line-height: 72px;
 }
+
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+  border: 10px solid #000000;
+  box-sizing: border-box;
+  box-shadow: 14px 14px 30px 10px rgba(0, 0, 0, 0.25), 10px 10px 0 #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #FC9434 !important;
+  font-family: Fira Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 60px;
+  line-height: 72px;
+  font-size: 7vh;
+  color: black;
+  /* float: right; */
+  /* clear: right; */
+  width: 30vw;
+  border-radius: 0px;
+  outline: none;
+}
+
 input[type="text"] {
   background: white;
 }
@@ -90,10 +123,15 @@ input:focus {
   position:absolute;
 }
 
-#start-game-div {
+#start-game-div, #prompt-button {
   /* border: red solid 1px; */
   float: right;
   clear: right;
+  margin: 0;
+}
+#prompt-button button {
+  position: relative;
+  bottom: 70px;
 }
 #roomCode, #nameID {
   text-transform: uppercase;

@@ -15,6 +15,11 @@ app.use(express.static('public'))
 
 const prompts = ["unfunny joke 1","unfunny joke 2","unfunny joke 3","unfunnt joke 4","unfunny joke 5"]
 
+// temporary (replace/edit later)
+app.use('/results', (req, res)=>{
+  res.render('results');
+})
+
 app.post('/submit', (req, res) => {
     //console.log(req.body) //you will get your data in this as object.
     res.cookie("context", req.body.name, { httpOnly: true });
@@ -73,6 +78,10 @@ io.on('connection', socket => {
       socket.on('prompt', data =>{
         io.emit('displayPrompt', {PROMPT: prompts[data.turnNum] , DisplayName: data.curName})
 
+      })
+      socket.on('start-judging', data =>{
+        socket.emit('check-score')
+          //code to check if score reaches below threshold
       })
 
       socket.on('game-over', ()=>{
