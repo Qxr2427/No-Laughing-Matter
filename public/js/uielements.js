@@ -24,7 +24,7 @@ var circles = [];
 
 // how many circles
 const circleNumber = 5;
-let circleFreq = laughScore;
+let circleFreq = 500;
 for (let i = 0; i < circleNumber; i++) {
   addCircle(i * circleFreq, [27 + 100, 50], emoji[Math.floor(Math.random() * emoji.length)]);
   addCircle(i * circleFreq, [39 + 300, 50], emoji[Math.floor(Math.random() * emoji.length)]);
@@ -79,4 +79,4 @@ function animate() {
   requestAnimationFrame(animate);
 }
 
-animate();
+// animate();
