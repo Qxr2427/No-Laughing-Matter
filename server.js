@@ -18,6 +18,7 @@ const prompts = ["unfunny joke 1","unfunny joke 2","unfunny joke 3","unfunnt jok
 app.post('/submit', (req, res) => {
     //console.log(req.body) //you will get your data in this as object.
     res.cookie("context", req.body.name, { httpOnly: true });
+    req.body.room = req.body.room.toUpperCase()
     res.redirect(req.body.room)
 })
 
@@ -49,7 +50,7 @@ io.on('connection', socket => {
       })
     
       socket.on('URGENT_LIST_UPDATE', (data)=>{
-        console.log(data)
+        //console.log(data)
         io.emit('GLOBAL_URGENT_LIST_UPDATE', {globallist: data.list})
 
       })
@@ -62,7 +63,9 @@ io.on('connection', socket => {
       socket.on('start-game', (data)=>{
         console.log(`${socket.id} sent to ${data.cur_turn}`) //if not the target user it does not send?????
         io.emit('GAME_STARTED')
-        io.to(data.cur_turn[0]).emit('your_turn')
+        console.log("cur_turn error "+data.cur_turn)
+        var address = data.cur_turn[0]
+        io.to(address).emit('your_turn')
       })
 
       socket.on('prompt', data =>{
