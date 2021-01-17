@@ -7,9 +7,9 @@ var points = 0
 
 
 
-var progressBar = new ProgressBar.Line(document.getElementById('div1'), {
-  strokeWidth: 2
-});
+// var progressBar = new ProgressBar.Line(document.getElementById('div1'), {
+//   strokeWidth: 2
+// });
 
 socket.on('points+response', ()=>{
   points++;
