@@ -10,16 +10,24 @@ for (var i = 0; i < 300; i++) {
 
 socket.on("update_score", (data) => {
   //console.log(Math.round(data.score));
-  socket.on("check-score", (data) => {
-
-    
-  });
-  scores.shift();
-  scores.push(Math.round(data.score));
-  var avg = 0;
-  var i;
-  for (i = 0; i < scores.length; i++) {
-    avg += scores[i];
+  socket.on('check-score', () =>{
+    //code to check if score reaches below threshold
+    //show turn over dialogue, prompt next turn
+  })
+  scores.shift()
+  scores.push(Math.round(data.score))
+  var avg = 0
+  var i
+  for (i = 0; i < scores.length; i++){
+    avg += scores[i]
+  }
+  var curMax = Math.max(...scoreRecords)
+  var curScore = avg/scores.length
+  if(Number.isNaN(curScore)){
+    scoreRecords.shift()
+    scoreRecords.push(50)
+    curScore = 50
+    curMax = 100
   }
   var curMax = Math.max(...scoreRecords);
   var curScore = avg / scores.length;
