@@ -71,7 +71,7 @@ socket.on("update_score", (data) => {
     console.log("Case 1: " + prevWidth);
     console.log(curScore + " " + curMax);
     prevScore = curScore;
-    prevWidth = prevWidth - 0.7;
+    prevWidth = prevWidth - 0.05;
     curWidth = prevWidth;
     progressBar.style = `width: ${Math.round(prevWidth)}%`;
   } else {
