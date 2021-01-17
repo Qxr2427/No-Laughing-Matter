@@ -76,6 +76,7 @@ io.on('connection', socket => {
       })
 
       socket.on('prompt', data =>{
+        console.log(prompts[data.turnNum])
         io.emit('displayPrompt', {PROMPT: prompts[data.turnNum] , DisplayName: data.curName})
 
       })
