@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
 
-const prompts = ["unfunny joke 1","unfunny joke 2","unfunny joke 3","unfunnt joke 4","unfunny joke 5"]
+const prompts = ["mario judah","xxxtentacion","AIYY LMAO","we got this guys","unfunny joke 5"]
 
 // temporary (replace/edit later)
 app.use('/results', (req, res)=>{
