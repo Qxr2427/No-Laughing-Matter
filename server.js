@@ -65,12 +65,19 @@ io.on('connection', socket => {
         io.emit('GAME_STARTED')
         console.log("cur_turn error "+data.cur_turn)
         var address = data.cur_turn[0]
+
+        //if turn 
         io.to(address).emit('your_turn')
       })
 
       socket.on('prompt', data =>{
         io.emit('displayPrompt', {PROMPT: prompts[data.turnNum] , DisplayName: data.curName})
 
+      })
+
+      socket.on('game-over', ()=>{
+        io.emit('GAMEOVER')
+        setTimeout(res.render('results'), 1000)
       })
     })
   })
