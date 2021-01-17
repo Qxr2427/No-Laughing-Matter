@@ -83,19 +83,20 @@ function connectToNewUser(userId, stream) {
     else{
       surprisedScore = surprised
     }
-    return 100*(happy*0.5 + surprisedScore*0.4 + diffScore * 0.1)
+    return 100*(happy*0.6 + surprisedScore*0.3 + diffScore * 0.1)
   }
   function runningavg(arr){
     let avg = 0
-    let count = 20
+    let count = arr.length
     var i 
-    for (i = 0; i < 20; i++){
+    for (i = 0; i < arr.length; i++){
       try {
         avg += arr[i]
       } catch (error) {
         count--
       }
     }
+    if (count == 0) return avg
     return avg/count
   }
   
@@ -117,7 +118,7 @@ function connectToNewUser(userId, stream) {
     // faceapi.matchDimensions(canvas, displaySize)
     var prevX = 100
     var prevY = 100
-    var running_average_array = [60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60]
+    var running_average_array = [60, 60, 60]
     let flag = false
     let maxscore = 60
     let referenceMouth = 0
@@ -151,7 +152,7 @@ function connectToNewUser(userId, stream) {
       //console.log("Max = " + maxscore)
      // console.log("Current score = " + score(happy, (mouth - referenceMouth) * 0.033, diffX, diffY))
       
-      var cur_score = score(happy, (mouth - referenceMouth) * 0.033, diffX, diffY)
+      var cur_score = score(happy, (mouth - referenceMouth) * 0.05, diffX, diffY)
       
       running_average_array.shift()
       running_average_array.push(cur_score)
@@ -161,10 +162,10 @@ function connectToNewUser(userId, stream) {
       //  flag=true
       //  maxscore = 60
      // }
-     maxscore = Math.max (cur_average, maxscore)
+      maxscore = Math.max (cur_average, maxscore)
      //console.log("Current avg = " + cur_average)
 
-      socket.emit('cur_score', {current_score: cur_score})
+      socket.emit('cur_score', {current_score: cur_average})
       //socket.emit('cur_avg', {current_average: cur_average})
       //console.log(detections[0].landmarks.__proto__)
       //document.getElementById("score").innerHTML = "Current score: " + score(happy, (mouth - referenceMouth) * 0.033, diffX, diffY).toString()
