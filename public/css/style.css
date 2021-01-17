@@ -38,7 +38,7 @@ main {
   height: 100%;
   object-fit: cover;
   border: 15px solid black;
-  box-shadow: 0 0 10px 4px #000;
+  box-shadow: 0 0 30px 10px rgba(0, 0, 0, 0.25);
 }
 .video-box p {
   font-size: 30px;
@@ -65,11 +65,16 @@ input[type="text"] {
   background: white;
 }
 #start-game {
-  width: 500px;
+  
 }
 ::-webkit-input-placeholder {
   color: #ddd;
 }
 input:focus {
   outline: none;
+}
+#start-game, #my-turn button {
+  float: right;
+  clear: right;
+  width: 500px;
 }
