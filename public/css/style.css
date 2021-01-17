@@ -10,15 +10,16 @@ h1 {
   font-family: Fira Sans;
   font-style: italic;
   font-weight: bold;
-  font-size: 150px;
-  line-height: 130px;
+  font-size: 120px;
+  line-height: 85%;
 
   display: flex;
   align-items: center;
   text-align: center;
+  margin-top: 5%
 }
 main {
-  padding: 100px;
+  padding: 5%;
 }
 #video-grid {
   display: grid;
@@ -27,7 +28,11 @@ main {
   column-gap: 50px;
   row-gap: 150px;
   /* border: red solid 1px; */
-  margin-bottom: 150px;
+  margin-bottom: 80px;
+}
+#progress-title {
+  margin-top: 0;
+  font-weight: 700;
 }
 .video-box {
   /* border: red solid 1px; */
@@ -97,11 +102,16 @@ input:focus {
   display: inline-block;
   width: 300px;
   height: 150px;
+}
+#below-videos {
+  /* border: red solid 1px; */
+}
+#room-code-display h2 {
   font-family: Fira Sans;
   font-style: normal;
   font-weight: bold;
   font-size: 100px;
-  /* line-height: 120px; */
+  margin: auto;
 }
 #room-code-group, #join-instructions {
   display: inline-block;
