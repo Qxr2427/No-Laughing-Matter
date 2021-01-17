@@ -1,6 +1,7 @@
 var turn = 0
 
 document.getElementById('start-game').addEventListener('click', ()=>{
+    console.log('start-game prompt list ' + turnorder[turn])
     socket.emit('start-game', {cur_turn: turnorder[turn]})
     //document.getElementById('start-game').remove()
         //console.log(turnorder[turn])
@@ -28,6 +29,13 @@ socket.on('your_turn', ()=>{
     }
 
 )
+
+socket.on('displayPrompt', data =>{
+    alert(data.DisplayName +" prompt is " + data.PROMPT)
+
+
+})
+
 // 
 // var progressBar = new ProgressBar.Line(document.getElementById('div1'), {
 //     strokeWidth: 2
