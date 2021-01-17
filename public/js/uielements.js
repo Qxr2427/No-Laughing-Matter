@@ -15,7 +15,7 @@ socket.on("update_score", (data) => {
   if ((curScore < 50) || (curScore < prevScore)){
     //console.log(curScore + " " + prevScore)
     prevScore = curScore
-    prevWidth = prevWidth - 5
+    prevWidth = prevWidth - 1
    //console.log("Case 1: " + prevWidth)
     progressBar.style=  `width: ${Math.round(prevWidth)}%`
     
