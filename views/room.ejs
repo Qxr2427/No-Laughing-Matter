@@ -22,9 +22,22 @@
 
 <body>
   <main>
-    <div id="video-grid"></div>    
-    <div><button id ="start-game">START GAME</button></div>
-    <div id = "my-turn"></div>
+    <div id="video-grid"></div>  
+    <div id="below-videos">
+      <div id="join-instructions">
+        <p>TO JOIN, GO TO:</p>
+        <h2>name.com</h2>
+        <p>AND ENTER THIS ROOM CODE:</p>
+      </div>  
+      <div id="room-code-group">
+        <div id="room-code-display">
+          <%= roomId %>
+        </div>
+        <h6>ROOM CODE</h6>
+      </div>
+      <div id="start-game-div"><button id ="start-game">START GAME</button></div>
+      <div id = "my-turn"></div>
+    </div>
   </main>
     <script src = "js/turnorder.js" defer></script>
     <script src = "js/startgame.js" defer></script>

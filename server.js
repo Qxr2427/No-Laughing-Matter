@@ -18,6 +18,7 @@ const prompts = ["unfunny joke 1","unfunny joke 2","unfunny joke 3","unfunnt jok
 app.post('/submit', (req, res) => {
     //console.log(req.body) //you will get your data in this as object.
     res.cookie("context", req.body.name, { httpOnly: true });
+    req.body.room = req.body.room.toUpperCase()
     res.redirect(req.body.room)
 })
 
