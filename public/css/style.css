@@ -146,10 +146,6 @@ input:focus {
   clear: right;
   margin: 0;
 }
-#prompt-button button {
-  position: relative;
-  bottom: 70px;
-}
 #roomCode, #nameID {
   text-transform: uppercase;
 }
