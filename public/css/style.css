@@ -6,6 +6,10 @@ body {
   font-family: 'Fira Sans', sans-serif;
   font-weight: 600;
 }
+#home-body {
+  background-image: url('../images/background.png');
+  background-size: cover;
+}
 h1 {
   font-family: Fira Sans;
   font-style: italic;
@@ -21,6 +25,11 @@ h1 {
 }
 #home-title {
   text-align: left;
+}
+#logo-icon {
+  width: 10vh; 
+  margin-bottom: -6vh;
+  display: block;
 }
 main {
   padding: 5%;
