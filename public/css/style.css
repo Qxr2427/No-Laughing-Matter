@@ -188,3 +188,15 @@ input:focus {
   background-color:#FC9434;
   border-radius: 0px;
 }
+
+#results-header{
+  font-size: 12vh;
+  font-weight: bold;
+  margin:auto;
+  text-align:center;
+}
+
+#results{
+  margin:auto;
+  text-align:center;
+}
