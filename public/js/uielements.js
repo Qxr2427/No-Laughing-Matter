@@ -10,7 +10,7 @@ for (var i = 0; i < 300 ; i++){
 
 socket.on("update_score", (data) => {
   //console.log(Math.round(data.score));
-  socket.on('check-score', data=>{
+  socket.on('check-score', () =>{
     //code to check if score reaches below threshold
     //show turn over dialogue, prompt next turn
   })
