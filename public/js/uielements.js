@@ -1,16 +1,26 @@
 const progressBar = document.getElementById("progress-bar");
-let laughScore;
-var container = document.getElementById('container');
-var emoji = ['😂'];
-var circles = [];
+var scores = [20, 20, 20, 20]
 
 socket.on("update_score", (data) => {
   console.log(Math.round(data.score));
-  progressBar.style=  `width: ${Math.round(data.score)}%`;
+  scores.shift()
+  scores.push(Math.round(data.score))
+  var avg = 0
+  var i
+  for(i = 0; i < 4; i++){
+    avg += scores[i]
+  }
+
+  progressBar.style=  `width: ${Math.round(avg/4)}%`;
   console.log("recieve cur_score");
 });
 
 
+
+
+var container = document.getElementById('container');
+var emoji = ['😂'];
+var circles = [];
 
 // how many circles
 const circleNumber = 5;
