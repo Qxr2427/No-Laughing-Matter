@@ -10,20 +10,24 @@ for (var i = 0; i < 300; i++) {
 
 socket.on("update_score", (data) => {
   //console.log(Math.round(data.score));
-  socket.on("check-score", () => {
-    
-    console.log("current width" + curWidth);
-    if (curWidth < 0) {
-      scores = [20, 20, 20, 20];
-      prevScore = 90;
-      prevWidth = 80;
-      scoreRecords = [];
-      for (var i = 0; i < 300; i++) {
-        scoreRecords.push(80);
+let check_score = false
+
+  console.log("current width" + curWidth);
+
+    if (check_score == true) {
+      if (curWidth < 0) {
+        scores = [20, 20, 20, 20];
+        prevScore = 90;
+        prevWidth = 80;
+        scoreRecords = [];
+        for (var i = 0; i < 300; i++) {
+          scoreRecords.push(80);
+        }
       }
     }
-
-  });
+  socket.on("check-score", () => {
+    check_score = true
+    });
   scores.shift();
   scores.push(Math.round(data.score));
   var avg = 0;
