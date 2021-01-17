@@ -181,7 +181,7 @@ function connectToNewUser(userId, stream) {
     videoCell.className = "video-box"
     console.log(turnorder)
     let name = document.createElement("p")
-    name.innerText = NAME.toUpperCase() // Put name here pls
+    //name.innerText = socket.id // Put name here pls
     videoCell.appendChild(name)
 
     videoGrid.appendChild(videoCell)

@@ -18,6 +18,7 @@ socket.on("update_score", (data) => {
     prevWidth = prevWidth - 5
    //console.log("Case 1: " + prevWidth)
     progressBar.style=  `width: ${Math.round(prevWidth)}%`
+    
   }
   else {
     var diff = curScore - prevScore
@@ -28,6 +29,20 @@ socket.on("update_score", (data) => {
     //console.log("Case 2: " + curWidth)
     prevWidth = curWidth
   }
+  console.log(`width: ${progressBar.style.width}`)
+  console.log(`max: ${progressBar.getAttribute('aria-valuemax')}`)
+  let percentage = parseFloat(progressBar.style.width) / 100.0;
+  const minHue = 80
+  const maxHue = 235
+  let hue = Math.round(minHue + (percentage * (maxHue - minHue)))
+
+  if (!Number.isNaN(hue)){
+    // progressBar.style.backgroundColor = `hsl(` + hue + `, 100%, 100%)`
+    progressBar.style.backgroundColor = `rgb(235, ${hue}, 52)`
+  }
+
+  console.log(`background-color: hsl(${hue}, 100%, 100%)`)
+  console.log(progressBar.style.backgroundColor)
   console.log("recieve cur_score");
 });
 
@@ -40,7 +55,7 @@ var circles = [];
 
 // how many circles
 const circleNumber = 5;
-let circleFreq = laughScore;
+let circleFreq = 500;
 for (let i = 0; i < circleNumber; i++) {
   addCircle(i * circleFreq, [27 + 100, 50], emoji[Math.floor(Math.random() * emoji.length)]);
   addCircle(i * circleFreq, [39 + 300, 50], emoji[Math.floor(Math.random() * emoji.length)]);
@@ -95,4 +110,4 @@ function animate() {
   requestAnimationFrame(animate);
 }
 
-animate();
+// animate();
