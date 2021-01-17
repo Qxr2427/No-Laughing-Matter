@@ -181,7 +181,7 @@ input:focus {
   font-size: 20px;
 }
 #join-instructions h2 {
-  font-size: 60px;
+  font-size: 3vh;
   font-weight: 700;
   margin: 3px 0 7px 0;
 }
