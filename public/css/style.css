@@ -123,3 +123,17 @@ input:focus {
   margin: 20px 0;
   text-align: center;
 }
+.progress {
+  box-shadow: 14px 14px 30px 10px rgba(0, 0, 0, 0.25), 10px 10px 0 #000000;
+  outline: 10px solid #000000;
+  height: 70px;
+  outline-offset: -10px;
+  /* -moz-border-radius: 0px;
+  -webkit-border-radius: 0px; */
+  border-radius: 0px;
+  /* margin: 10px; */
+}
+#progress-bar {
+  background-color:#FC9434;
+  border-radius: 0px;
+}
