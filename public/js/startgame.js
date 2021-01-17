@@ -14,7 +14,7 @@ socket.on('GAME_STARTED', ()=>{
 
 socket.on('your_turn', ()=>{
         turn++ //incremenmt turn counter in turn list
-        var turn_button = document.createElement("BUTTON")
+        var turn_button = document.createElement("button")
         turn_button.id = "turn"
         turn_button.innerHTML = "YOUR TURN"
         document.getElementById("my-turn").appendChild(turn_button)
@@ -26,12 +26,12 @@ socket.on('your_turn', ()=>{
     }
 
 )
-
-var progressBar = new ProgressBar.Line(document.getElementById('div1'), {
-    strokeWidth: 2
-  });
+// 
+// var progressBar = new ProgressBar.Line(document.getElementById('div1'), {
+//     strokeWidth: 2
+//   });
   
-socket.on('update_score', (data)=>{
-    console.log("UPDATE SCORE") // BUT IT ISNT DRAWING!!!!!
-    progressBar.set(data.current_score)
-  })
+// socket.on('update_score', (data)=>{
+//     console.log("UPDATE SCORE") // BUT IT ISNT DRAWING!!!!!
+//     progressBar.set(data.current_score)
+//   })
