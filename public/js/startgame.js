@@ -17,12 +17,17 @@ socket.on('GAME_STARTED', ()=>{
 
 socket.on('your_turn', ()=>{
     console.log('your turn')
+        
         turn++ //incremenmt turn counter in turn list
+
+        console.log("turnorder length " + turnorder.length + "turn "+ turn) 
+        
         var turn_button = document.createElement("button")
         turn_button.id = "turn"
         turn_button.innerHTML = "YOUR TURN"
         document.getElementById("my-turn").appendChild(turn_button)
         document.getElementById('turn').addEventListener('click', ()=>{
+            
             socket.emit('start-game', {cur_turn: turnorder[turn]})
             document.getElementById('turn').remove()
             //but.remove()
@@ -38,6 +43,9 @@ socket.on('displayPrompt', data =>{
 
 })
 
+socket.on('GAMEOVER', ()=>{
+    alert('GAMEOVER')
+})
 // 
 // var progressBar = new ProgressBar.Line(document.getElementById('div1'), {
 //     strokeWidth: 2
