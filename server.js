@@ -77,14 +77,16 @@ io.on('connection', socket => {
 
       socket.on('prompt', data =>{
         console.log(prompts[data.turnNum])
-        io.emit('displayPrompt', {PROMPT: prompts[data.turnNum] , DisplayName: data.curName})
+        io.emit('displayPrompt', {PROMPT: prompts[data.turnNum] , DisplayName: data.curName, turn: data.cur_turn})
 
       })
-      socket.on('start-judging', () =>{
-        io.emit('check-score')
+      socket.on('start-judging', (data) =>{
+        io.emit('check-score', {turn: data.cur_turn})
           //code to check if score reaches below threshold
       })
-
+      socket.on('round-over', (data)=>{
+        io.emit('new-round', {turn: data.cur_turn})
+      })
       socket.on('game-over', ()=>{
         io.emit('GAMEOVER')
         setTimeout(res.render('results'), 1000)

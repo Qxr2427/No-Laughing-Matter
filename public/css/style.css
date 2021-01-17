@@ -19,6 +19,9 @@ h1 {
   margin-top: 5%;
   margin-bottom: 5vh;
 }
+#home-title {
+  text-align: left;
+}
 main {
   padding: 5%;
 }
