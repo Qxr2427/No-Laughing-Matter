@@ -13,6 +13,7 @@ socket.on('GAME_STARTED', ()=>{
 })
 
 socket.on('your_turn', ()=>{
+    console.log('your turn')
         turn++ //incremenmt turn counter in turn list
         var turn_button = document.createElement("button")
         turn_button.id = "turn"
@@ -22,6 +23,7 @@ socket.on('your_turn', ()=>{
             socket.emit('start-game', {cur_turn: turnorder[turn]})
             document.getElementById('turn').remove()
             //but.remove()
+        socket.emit('prompt', {curName: NAME, turnNum: turn})
         })
     }
 
