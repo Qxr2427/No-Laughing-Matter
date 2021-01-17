@@ -37,7 +37,7 @@ socket.on('your_turn', ()=>{
 
 socket.on('displayPrompt', data => {
     //console.log(data)
-    
+    $("#exampleModalCenter").modal('show')
     var promp = document.getElementById('content')
     promp.innerHTML = (data.DisplayName + " prompt is... "+ data.PROMPT)
     //alert(data.DisplayName +" prompt is " + data.PROMPT)
