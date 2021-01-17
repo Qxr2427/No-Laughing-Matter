@@ -60,8 +60,9 @@ button, input, #room-code-display {
 }
 button, input {
   background: #FC9434;
-  width: 300px;
-  height: 100px;
+  /* Uncomment if needed */
+  /* width: 300px;
+  height: 100px; */
   font-family: Fira Sans;
   font-style: normal;
   font-weight: bold;
