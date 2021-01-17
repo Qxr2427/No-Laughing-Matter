@@ -13,6 +13,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
 
+const prompts = ["unfunny joke 1","unfunny joke 2","unfunny joke 3","unfunnt joke 4","unfunny joke 5"]
+
 app.post('/submit', (req, res) => {
     //console.log(req.body) //you will get your data in this as object.
     res.cookie("context", req.body.name, { httpOnly: true });
@@ -53,17 +55,20 @@ io.on('connection', socket => {
       })
 
       socket.on('list-update', (data) => {
-        console.log('list update')
+        //console.log('list update')
         io.emit('global-list-update', {globallist: data.list})
       })
 
       socket.on('start-game', (data)=>{
         console.log(`${socket.id} sent to ${data.cur_turn}`) //if not the target user it does not send?????
         io.emit('GAME_STARTED')
-        io.to(data.cur_turn).emit('your_turn')
+        io.to(data.cur_turn[0]).emit('your_turn')
       })
 
-      
+      socket.on('prompt', data =>{
+        io.emit('displayPrompt', {PROMPT: prompts[data.turnNum] , DisplayName: data.curName})
+
+      })
     })
   })
 
