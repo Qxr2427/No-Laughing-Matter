@@ -11,7 +11,21 @@ socket.on("update_score", (data) => {
     avg += scores[i]
   }
 
-  progressBar.style=  `width: ${Math.round(avg/4)}%`;
+  progressBar.style=  `width: ${Math.round(avg/4)}%`
+  console.log(`width: ${progressBar.style.width}`)
+  console.log(`max: ${progressBar.getAttribute('aria-valuemax')}`)
+  let percentage = parseFloat(progressBar.style.width) / 100.0;
+  const minHue = 80
+  const maxHue = 235
+  let hue = Math.round(minHue + (percentage * (maxHue - minHue)))
+
+  if (!Number.isNaN(hue)){
+    // progressBar.style.backgroundColor = `hsl(` + hue + `, 100%, 100%)`
+    progressBar.style.backgroundColor = `rgb(235, ${hue}, 52)`
+  }
+
+  console.log(`background-color: hsl(${hue}, 100%, 100%)`)
+  console.log(progressBar.style.backgroundColor)
   console.log("recieve cur_score");
 });
 
