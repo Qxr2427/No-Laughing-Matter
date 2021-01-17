@@ -1,17 +1,33 @@
 const progressBar = document.getElementById("progress-bar");
 var scores = [20, 20, 20, 20]
-
+var prevScore = 90
+var prevWidth = 90
 socket.on("update_score", (data) => {
-  console.log(Math.round(data.score));
+  //console.log(Math.round(data.score));
   scores.shift()
   scores.push(Math.round(data.score))
   var avg = 0
   var i
-  for(i = 0; i < 4; i++){
+  for (i = 0; i < scores.length; i++){
     avg += scores[i]
   }
-
-  progressBar.style=  `width: ${Math.round(avg/4)}%`;
+  var curScore = avg/scores.length
+  if ((curScore < 50) || (curScore < prevScore)){
+    //console.log(curScore + " " + prevScore)
+    prevScore = curScore
+    prevWidth = prevWidth - 5
+   //console.log("Case 1: " + prevWidth)
+    progressBar.style=  `width: ${Math.round(prevWidth)}%`
+  }
+  else {
+    var diff = curScore - prevScore
+    //console.log(curScore + " " + prevScore)
+    var curWidth = prevWidth + diff
+    prevScore = curScore
+    progressBar.style=  `width: ${Math.round(curWidth)}%`
+    //console.log("Case 2: " + curWidth)
+    prevWidth = curWidth
+  }
   console.log("recieve cur_score");
 });
 
