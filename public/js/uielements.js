@@ -8,9 +8,11 @@ for (var i = 0; i < 300; i++) {
   scoreRecords.push(80);
 }
 
+let check_score = false
+let turnlist = ""
 socket.on("update_score", (data) => {
   //console.log(Math.round(data.score));
-let check_score = false
+
 
   console.log("current width" + curWidth);
 
@@ -20,13 +22,15 @@ let check_score = false
         prevScore = 90;
         prevWidth = 80;
         scoreRecords = [];
+        socket.emit('round-over', {cur_turn: turnlist})
         for (var i = 0; i < 300; i++) {
           scoreRecords.push(80);
         }
       }
     }
-  socket.on("check-score", () => {
+  socket.on("check-score", (data) => {
     check_score = true
+    turnlist = data.cur_turn
     });
   scores.shift();
   scores.push(Math.round(data.score));

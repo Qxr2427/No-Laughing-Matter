@@ -15,8 +15,13 @@ socket.on('GAME_STARTED', ()=>{
     //alert('game STARTED')
 })
 
+socket.on('new-round', (data)=>{
+    alert('end of round!')
+    socket.emit('start-game', {cur_turn: data.turn})
+})
+
 socket.on('your_turn', ()=>{
-    console.log('your turn')
+    //console.log('your turn')
         
         turn++ //incremenmt turn counter in turn list
 
@@ -28,10 +33,10 @@ socket.on('your_turn', ()=>{
         document.getElementById("my-turn").appendChild(turn_button)
         document.getElementById('turn').addEventListener('click', ()=>{
             
-            socket.emit('start-game', {cur_turn: turnorder[turn]})
+            //socket.emit('start-game', {cur_turn: turnorder[turn]})
             document.getElementById('turn').remove()
             //but.remove()
-            socket.emit('prompt', {curName: NAME, turnNum: turn})
+            socket.emit('prompt', {curName: NAME, turnNum: turn, cur_turn: turnorder[turn]})
         })
     })
 
@@ -49,7 +54,7 @@ socket.on('displayPrompt', data => {
     //     'data-target': "#exampleModalCenter",
     //     innerHTML: "PROMPT!"
     // }
-    socket.emit('start-judging')
+    socket.emit('start-judging', {cur_turn: data.turn})
 })
 
 socket.on('GAMEOVER', ()=>{
