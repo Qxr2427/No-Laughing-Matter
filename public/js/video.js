@@ -148,8 +148,8 @@ function connectToNewUser(userId, stream) {
         referenceMouth = mouth - 8
         flag=true
       }
-      console.log("Max = " + maxscore)
-      console.log("Current score = " + score(happy, (mouth - referenceMouth) * 0.033, diffX, diffY))
+      //console.log("Max = " + maxscore)
+     // console.log("Current score = " + score(happy, (mouth - referenceMouth) * 0.033, diffX, diffY))
       
       var cur_score = score(happy, (mouth - referenceMouth) * 0.033, diffX, diffY)
       
@@ -162,7 +162,7 @@ function connectToNewUser(userId, stream) {
       //  maxscore = 60
      // }
      maxscore = Math.max (cur_average, maxscore)
-     console.log("Current avg = " + cur_average)
+     //console.log("Current avg = " + cur_average)
 
       socket.emit('cur_score', {current_score: cur_score})
       //socket.emit('cur_avg', {current_average: cur_average})
@@ -177,7 +177,7 @@ function connectToNewUser(userId, stream) {
     const videoCell = document.createElement("div")
     videoCell.appendChild(video)
     videoCell.className = "video-box"
-
+    console.log(turnorder)
     let name = document.createElement("p")
     name.innerText = NAME // Put name here pls
     videoCell.appendChild(name)
