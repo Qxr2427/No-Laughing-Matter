@@ -13,10 +13,15 @@ socket.on('GAME_STARTED', ()=>{
     document.getElementById('join-instructions').remove()
     //do game_started dialogue 
     //alert('game STARTED')
+    //socket.emit('test')
 })
 
+//socket.on('test',() =>{
+    //console.log("SOCKET CLIENT RECEIVES ITS OWN")
+//})
 socket.on('new-round', (data)=>{
     alert('end of round!')
+    console.log("new round turn " + data) //EMPTY OBJECT WHAT
     socket.emit('start-game', {cur_turn: data.turn})
 })
 
@@ -36,6 +41,7 @@ socket.on('your_turn', ()=>{
             //socket.emit('start-game', {cur_turn: turnorder[turn]})
             document.getElementById('turn').remove()
             //but.remove()
+            //socket.to(data.turn).broadcast.emit('start-judging', {cur_turn: data.turn})
             socket.emit('prompt', {curName: NAME, turnNum: turn, cur_turn: turnorder[turn]})
         })
     })
@@ -54,7 +60,7 @@ socket.on('displayPrompt', data => {
     //     'data-target': "#exampleModalCenter",
     //     innerHTML: "PROMPT!"
     // }
-    socket.emit('start-judging', {cur_turn: data.turn})
+    
 })
 
 socket.on('GAMEOVER', ()=>{

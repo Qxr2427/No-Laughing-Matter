@@ -68,7 +68,7 @@ io.on('connection', socket => {
       socket.on('start-game', (data)=>{
         console.log(`${socket.id} sent to ${data.cur_turn}`) //if not the target user it does not send?????
         io.emit('GAME_STARTED')
-        console.log("cur_turn error "+data.cur_turn)
+        //console.log(data) /// EMPTY OBJECT WHAT
         var address = data.cur_turn[0]
 
         //if turn 
@@ -77,14 +77,19 @@ io.on('connection', socket => {
 
       socket.on('prompt', data =>{
         console.log(prompts[data.turnNum])
+        //console.log(data)
+        console.log(data.cur_turn)
+        io.to(data.cur_turn[0]).emit('start-judging', {turn: data.cur_turn})
         io.emit('displayPrompt', {PROMPT: prompts[data.turnNum] , DisplayName: data.curName, turn: data.cur_turn})
 
       })
-      socket.on('start-judging', (data) =>{
-        io.emit('check-score', {turn: data.cur_turn})
-          //code to check if score reaches below threshold
-      })
+      // socket.on('start-judging', (data) =>{
+      //   io.to.emit('check-score', {turn: data.cur_turn})
+      //     //code to check if score reaches below threshold
+      // })
       socket.on('round-over', (data)=>{
+        console.log("round-over sent!")
+        //console.log(data) //EMPTY OBJECT
         io.emit('new-round', {turn: data.cur_turn})
       })
       socket.on('game-over', ()=>{
