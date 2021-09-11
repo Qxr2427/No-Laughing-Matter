@@ -13,7 +13,7 @@ let turnlist = ""
 socket.on("update_score", (data) => {
   //console.log(Math.round(data.score));
 
-
+// jjj
   console.log("current width" + curWidth);
 
     if (check_score == true) {
