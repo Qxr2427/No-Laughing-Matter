@@ -19,6 +19,11 @@ socket.on('GAME_STARTED', ()=>{
 //socket.on('test',() =>{
     //console.log("SOCKET CLIENT RECEIVES ITS OWN")
 //})
+socket.on("start-judging", (data) => {
+    //     console.log('judging starting')
+    //     check_score = true
+         turnlist = data.turn
+         });
 socket.on('new-round', (data)=>{
     alert('end of round!')
     console.log("new round turn " + data) //EMPTY OBJECT WHAT
@@ -43,6 +48,7 @@ socket.on('your_turn', ()=>{
             //but.remove()
             //socket.to(data.turn).broadcast.emit('start-judging', {cur_turn: data.turn})
             socket.emit('prompt', {curName: NAME, turnNum: turn, cur_turn: turnorder[turn]})
+            socket.emit('round-over', {cur_turn: turnlist})
         })
     })
 
