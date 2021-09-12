@@ -5,6 +5,7 @@ const io = require('socket.io')(server)
 const { v4: uuidV4 } = require('uuid')
 var bodyParser = require('body-parser');
 var cookieParser = require("cookie-parser");
+const { cp } = require('fs')
 
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -49,7 +50,9 @@ io.on('connection', socket => {
         socket.to(roomId).broadcast.emit('user-disconnected', userId)
       })
 
-    
+      socket.on('give-turnlist', data=>{
+        io.emit('master-turnlist', {list: data.list})
+      })
       socket.on('cur_score', data =>{
         io.emit('update_score', {score: data.current_score})
       })
@@ -66,19 +69,21 @@ io.on('connection', socket => {
       })
 
       socket.on('start-game', (data)=>{
-        console.log(`${socket.id} sent to ${data.cur_turn}`) //if not the target user it does not send?????
+        //console.log(`${socket.id} start game, list: ${data.turn_list}`) //if not the target user it does not send?????
         io.emit('GAME_STARTED')
+        
         //console.log(data) /// EMPTY OBJECT WHAT
-        var address = data.cur_turn[0]
-
+        console.log(data.turn_list)
+        var address = data.turn_list[0][0]
+        console.log(`start game, my address: ${socket.id} send to ${address} total list: ${data.turn_list}`)
         //if turn 
-        io.to(address).emit('your_turn')
+        io.to(address).emit('your_turn', {turn_list: data.turn_list})
       })
 
-      socket.on('prompt', data =>{
+      socket.on('prompt', data =>{ //data does not have curturn object
         console.log(prompts[data.turnNum])
         //console.log(data)
-        console.log(data.cur_turn)
+        console.log(data)
         io.to(data.cur_turn[0]).emit('start-judging', {turn: data.cur_turn})
         io.emit('displayPrompt', {PROMPT: prompts[data.turnNum] , DisplayName: data.curName, turn: data.cur_turn})
 
@@ -90,7 +95,11 @@ io.on('connection', socket => {
       socket.on('round-over', (data)=>{
         console.log("round-over sent!")
         //console.log(data) //EMPTY OBJECT
-        io.emit('new-round', {turn: data.cur_turn})
+        console.log(data.list)
+        var address = data.list[0][0]
+        //console.log("new address:", address)
+        //if turn 
+        io.to(address).emit('your_turn', {turn_list: data.list})
       })
       socket.on('game-over', ()=>{
         io.emit('GAMEOVER')

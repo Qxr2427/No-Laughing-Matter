@@ -1,12 +1,16 @@
 var turn = 0
 
 document.getElementById('start-game').addEventListener('click', ()=>{
-    console.log('start-game prompt list ' + turnorder[turn])
-    socket.emit('start-game', {cur_turn: turnorder[turn]})
+    console.log('start-game list ' + turnorder)
+    socket.emit('give-turnlist', {list: turnorder})
+    socket.emit('start-game', {turn_list: turnorder})
     //document.getElementById('start-game').remove()
-        //console.log(turnorder[turn])
+    //console.log(turnorder[turn])
 })
-
+socket.on('master-turnlist', (data)=>{
+    turnlist = data.list
+    console.log("my_turn_list is: ", turnlist)
+})
 socket.on('GAME_STARTED', ()=>{
     document.getElementById('start-game').remove()
     document.getElementById('room-code-group').remove()
@@ -24,19 +28,19 @@ socket.on("start-judging", (data) => {
     //     check_score = true
          turnlist = data.turn
          });
-socket.on('new-round', (data)=>{
-    alert('end of round!')
-    console.log("new round turn " + data) //EMPTY OBJECT WHAT
-    socket.emit('start-game', {cur_turn: data.turn})
-})
 
-socket.on('your_turn', ()=>{
+
+socket.on('your_turn', (data)=>{
     //console.log('your turn')
         
-        turn++ //incremenmt turn counter in turn list
+        //turn++ //incremenmt turn counter in turn list
 
-        console.log("turnorder length " + turnorder.length + "turn "+ turn) 
-        
+        //console.log("turnorder length " + turnorder.length + "turn "+ turn) 
+        turnlist = data.turn_list
+        turnlist.shift()
+        console.log("turnlist", turnlist) //this is ok so far
+        socket.emit('give-turnlist', {list: turnlist})
+
         var turn_button = document.createElement("button")
         turn_button.id = "turn"
         turn_button.innerHTML = "YOUR TURN"
@@ -47,8 +51,8 @@ socket.on('your_turn', ()=>{
             document.getElementById('turn').remove()
             //but.remove()
             //socket.to(data.turn).broadcast.emit('start-judging', {cur_turn: data.turn})
-            socket.emit('prompt', {curName: NAME, turnNum: turn, cur_turn: turnorder[turn]})
-            socket.emit('round-over', {cur_turn: turnlist})
+            //socket.emit('prompt', {curName: NAME, turnNum: turn, cur_turn: turnorder[turn]})
+            socket.emit('round-over', {list: turnlist})
         })
     })
 
