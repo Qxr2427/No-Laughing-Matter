@@ -213,3 +213,10 @@ input:focus {
   margin:auto;
   text-align:center;
 }
+
+#timer{
+  font-size: 12vh;
+  font-weight: bold;
+  text-align:center;
+  margin:auto;
+}

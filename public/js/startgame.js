@@ -15,6 +15,7 @@ socket.on('GAME_STARTED', ()=>{
     document.getElementById('start-game').remove()
     document.getElementById('room-code-group').remove()
     document.getElementById('join-instructions').remove()
+    console.log(socket.clients())
     //do game_started dialogue 
     //alert('game STARTED')
     //socket.emit('test')
@@ -49,6 +50,16 @@ socket.on('your_turn', (data)=>{
             
             //socket.emit('start-game', {cur_turn: turnorder[turn]})
             document.getElementById('turn').remove()
+            let i = 10;
+            // timer = setInterval(()=>{
+            //     if (i==0){
+            //         clearInterval(timer)
+            //         socket.emit('round-over', {list: turnlist})
+            //     }
+            //     document.getElementById('timer').innerText = String(i);
+            //     socket.emit('timer-update', {time: String(i)})
+            //     i--;
+            // },1000);                
             //but.remove()
             //socket.to(data.turn).broadcast.emit('start-judging', {cur_turn: data.turn})
             //socket.emit('prompt', {curName: NAME, turnNum: turn, cur_turn: turnorder[turn]})

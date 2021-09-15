@@ -71,13 +71,18 @@ io.on('connection', socket => {
       socket.on('start-game', (data)=>{
         //console.log(`${socket.id} start game, list: ${data.turn_list}`) //if not the target user it does not send?????
         io.emit('GAME_STARTED')
+        console.log(Object.keys(io.sockets.sockets)) //this is all the connected clients
+        console.log(socket.id) //this is my id. 
+        order = Object.keys(io.sockets.sockets)
+        order.splice((order.indexOf(socket.id)))
+        order.unshift(socket.id)
         
         //console.log(data) /// EMPTY OBJECT WHAT
-        console.log(data.turn_list)
-        var address = data.turn_list[0][0]
-        console.log(`start game, my address: ${socket.id} send to ${address} total list: ${data.turn_list}`)
+        //console.log(data.turn_list)
+        var address = order[0]
+        //console.log(`start game, my address: ${socket.id} send to ${address} total list: ${data.turn_list}`)
         //if turn 
-        io.to(address).emit('your_turn', {turn_list: data.turn_list})
+        io.to(address).emit('your_turn', {turn_list: order})
       })
 
       socket.on('prompt', data =>{ //data does not have curturn object
@@ -96,7 +101,7 @@ io.on('connection', socket => {
         console.log("round-over sent!")
         //console.log(data) //EMPTY OBJECT
         console.log(data.list)
-        var address = data.list[0][0]
+        var address = data.list[0]
         //console.log("new address:", address)
         //if turn 
         io.to(address).emit('your_turn', {turn_list: data.list})
@@ -104,6 +109,9 @@ io.on('connection', socket => {
       socket.on('game-over', ()=>{
         io.emit('GAMEOVER')
         setTimeout(res.render('results'), 1000)
+      })
+      socket.on('timer-update', (data)=>{
+        io.emit('timer_update', {time: data})
       })
     })
   })
