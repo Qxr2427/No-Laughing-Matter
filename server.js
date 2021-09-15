@@ -49,26 +49,8 @@ io.on('connection', socket => {
       socket.on('disconnect', () => {
         socket.to(roomId).broadcast.emit('user-disconnected', userId)
       })
-
-      socket.on('give-turnlist', data=>{
-        io.emit('master-turnlist', {list: data.list})
-      })
-      socket.on('cur_score', data =>{
-        io.emit('update_score', {score: data.current_score})
-      })
-    
-      socket.on('URGENT_LIST_UPDATE', (data)=>{
-        //console.log(data)
-        io.emit('GLOBAL_URGENT_LIST_UPDATE', {globallist: data.list})
-
-      })
-
-      socket.on('list-update', (data) => {
-        //console.log('list update')
-        io.emit('global-list-update', {globallist: data.list})
-      })
-
-      socket.on('start-game', (data)=>{
+      
+      socket.on('start-game', ()=>{
         //console.log(`${socket.id} start game, list: ${data.turn_list}`) //if not the target user it does not send?????
         io.emit('GAME_STARTED')
         console.log(Object.keys(io.sockets.sockets)) //this is all the connected clients
@@ -101,14 +83,17 @@ io.on('connection', socket => {
         console.log("round-over sent!")
         //console.log(data) //EMPTY OBJECT
         console.log(data.list)
-        var address = data.list[0]
-        //console.log("new address:", address)
+        console.log(data.list.length)
+        if (data.list.length == 0){
+          console.log("length 0")
+          io.emit('game-over')
+        }
+        else {
+        console.log("not zero")
         //if turn 
+        var address = data.list[0]
         io.to(address).emit('your_turn', {turn_list: data.list})
-      })
-      socket.on('game-over', ()=>{
-        io.emit('GAMEOVER')
-        setTimeout(res.render('results'), 1000)
+      }
       })
       socket.on('timer-update', (data)=>{
         io.emit('timer_update', {time: data})

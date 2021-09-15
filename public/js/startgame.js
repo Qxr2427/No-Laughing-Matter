@@ -7,15 +7,12 @@ document.getElementById('start-game').addEventListener('click', ()=>{
     //document.getElementById('start-game').remove()
     //console.log(turnorder[turn])
 })
-socket.on('master-turnlist', (data)=>{
-    turnlist = data.list
-    console.log("my_turn_list is: ", turnlist)
-})
+
 socket.on('GAME_STARTED', ()=>{
     document.getElementById('start-game').remove()
     document.getElementById('room-code-group').remove()
     document.getElementById('join-instructions').remove()
-    console.log(socket.clients())
+    //console.log(socket.clients())
     //do game_started dialogue 
     //alert('game STARTED')
     //socket.emit('test')
@@ -24,11 +21,7 @@ socket.on('GAME_STARTED', ()=>{
 //socket.on('test',() =>{
     //console.log("SOCKET CLIENT RECEIVES ITS OWN")
 //})
-socket.on("start-judging", (data) => {
-    //     console.log('judging starting')
-    //     check_score = true
-         turnlist = data.turn
-         });
+
 
 
 socket.on('your_turn', (data)=>{
@@ -84,8 +77,9 @@ socket.on('displayPrompt', data => {
     
 })
 
-socket.on('GAMEOVER', ()=>{
-    alert('GAMEOVER')
+socket.on('game-over', ()=>{
+    //document.getElementById('join-instructions').innerHTML = ("GAME OVER")
+    alert('game over')
 })
 // 
 // var progressBar = new ProgressBar.Line(document.getElementById('div1'), {
