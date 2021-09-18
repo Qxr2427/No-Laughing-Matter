@@ -64,6 +64,7 @@ io.on('connection', socket => {
         var address = order[0]
         //console.log(`start game, my address: ${socket.id} send to ${address} total list: ${data.turn_list}`)
         //if turn 
+        io.emit('turnlist_check', {turn_list: order})
         io.to(address).emit('your_turn', {turn_list: order})
       })
 

@@ -11,7 +11,9 @@ socket.on('GAME_STARTED', ()=>{
     document.getElementById('room-code-group').remove()
     document.getElementById('join-instructions').remove()
 })
-
+socket.on('turnlist_check', (data)=>{
+    console.log("original turnlist", data.turn_list)
+})
 socket.on('your_turn', (data)=>{
         turnlist = data.turn_list
         turnlist.shift()
@@ -29,7 +31,7 @@ socket.on('your_turn', (data)=>{
             let i = 10;
             turn = false;
             var timer = setInterval(()=>{
-                console.log("inside timer",turnlist)
+                console.log("inside timer", turnlist)
                 if (i==0){
                     console.log("timer set round over")
                     socket.emit('round-over', {list: turnlist})
