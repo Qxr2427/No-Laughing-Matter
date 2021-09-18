@@ -44,22 +44,31 @@ socket.on('your_turn', (data)=>{
             //socket.emit('start-game', {cur_turn: turnorder[turn]})
             document.getElementById('turn').remove()
             let i = 10;
-            // timer = setInterval(()=>{
-            //     if (i==0){
-            //         clearInterval(timer)
-            //         socket.emit('round-over', {list: turnlist})
-            //     }
-            //     document.getElementById('timer').innerText = String(i);
-            //     socket.emit('timer-update', {time: String(i)})
-            //     i--;
-            // },1000);                
+            turn = false;
+            var timer = setInterval(()=>{
+                if (i==0){
+                    console.log("timer set round over")
+                    socket.emit('round-over', {list: turnlist})
+                    clearInterval(timer)
+                }   
+                //document.getElementById('timer').innerText = String(i);
+                socket.emit('timer-update', {time: String(i)})
+                i--;
+            },1000);      
+            
+            
+            
+           // setTimeout(stop, 10000);    
             //but.remove()
             //socket.to(data.turn).broadcast.emit('start-judging', {cur_turn: data.turn})
             //socket.emit('prompt', {curName: NAME, turnNum: turn, cur_turn: turnorder[turn]})
-            socket.emit('round-over', {list: turnlist})
+            //socket.emit('round-over', {list: turnlist})
         })
     })
 
+socket.on('timer_update', data=>{
+    document.getElementById('timer').innerText = JSON.stringify(data.time);
+})
 socket.on('displayPrompt', data => {
     //console.log(data)
     $("#exampleModalCenter").modal('show')
