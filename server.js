@@ -67,18 +67,6 @@ io.on('connection', socket => {
         io.to(address).emit('your_turn', {turn_list: order})
       })
 
-      socket.on('prompt', data =>{ //data does not have curturn object
-        console.log(prompts[data.turnNum])
-        //console.log(data)
-        console.log(data)
-        io.to(data.cur_turn[0]).emit('start-judging', {turn: data.cur_turn})
-        io.emit('displayPrompt', {PROMPT: prompts[data.turnNum] , DisplayName: data.curName, turn: data.cur_turn})
-
-      })
-      // socket.on('start-judging', (data) =>{
-      //   io.to.emit('check-score', {turn: data.cur_turn})
-      //     //code to check if score reaches below threshold
-      // })
       socket.on('round-over', (data)=>{
         console.log("round-over sent!")
         //console.log(data) //EMPTY OBJECT
