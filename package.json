@@ -2,6 +2,9 @@
   "name": "hack-the-north",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": "16.x"
+  },
   "main": "index.js",
   "scripts": {
     "devStart": "nodemon server.js"
